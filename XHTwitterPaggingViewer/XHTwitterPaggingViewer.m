@@ -82,43 +82,6 @@ typedef NS_ENUM(NSInteger, XHSlideType) {
     [self callBackChangedPage];
 }
 
-#pragma mark - Propertys
-
-- (UIView *)centerContainerView {
-    if (!_centerContainerView) {
-        _centerContainerView = [[UIView alloc] initWithFrame:self.view.bounds];
-        _centerContainerView.backgroundColor = [UIColor whiteColor];
-        
-        [_centerContainerView addSubview:self.paggingScrollView];
-        [self.paggingScrollView.panGestureRecognizer addTarget:self action:@selector(panGestureRecognizerHandle:)];
-    }
-    return _centerContainerView;
-}
-
-- (UIScrollView *)paggingScrollView {
-    if (!_paggingScrollView) {
-        _paggingScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-        _paggingScrollView.bounces = NO;
-        _paggingScrollView.pagingEnabled = YES;
-        [_paggingScrollView setScrollsToTop:NO];
-        _paggingScrollView.delegate = self;
-        _paggingScrollView.showsVerticalScrollIndicator = NO;
-        _paggingScrollView.showsHorizontalScrollIndicator = NO;
-    }
-    return _paggingScrollView;
-}
-
-- (XHPaggingNavbar *)paggingNavbar {
-    if (!_paggingNavbar) {
-        _paggingNavbar = [[XHPaggingNavbar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds) / 2.0, 44)];
-        _paggingNavbar.backgroundColor = [UIColor clearColor];
-        _paggingNavbar.titleLableColor = _titleLableColor;
-        _paggingNavbar.pageControl.currentPageIndicatorTintColor = _indicatorActiveColor;
-        _paggingNavbar.pageControl.pageIndicatorTintColor = _indicatorColor;
-    }
-    return _paggingNavbar;
-}
-
 - (UIViewController *)getPageViewControllerAtIndex:(NSInteger)index {
     if (index < self.viewControllers.count) {
         return self.viewControllers[index];
@@ -188,24 +151,42 @@ typedef NS_ENUM(NSInteger, XHSlideType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    [self setupNavigationBar];
-    
+
     [self setupViews];
     
     [self reloadData];
 }
 
-- (void)setupNavigationBar {
+- (void)setupViews {
+    
+    _paggingScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    _paggingScrollView.bounces = NO;
+    _paggingScrollView.pagingEnabled = YES;
+    [_paggingScrollView setScrollsToTop:NO];
+    _paggingScrollView.delegate = self;
+    _paggingScrollView.showsVerticalScrollIndicator = NO;
+    _paggingScrollView.showsHorizontalScrollIndicator = NO;
+    
+    _centerContainerView = [[UIView alloc] initWithFrame:self.view.bounds];
+    _centerContainerView.backgroundColor = [UIColor whiteColor];
+            
+    [_centerContainerView addSubview:self.paggingScrollView];
+    [_paggingScrollView.panGestureRecognizer addTarget:self action:@selector(panGestureRecognizerHandle:)];
+
+    [self.view addSubview:_centerContainerView];
+
+    _paggingNavbar = [[XHPaggingNavbar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds) / 2.0, 44)];
+    _paggingNavbar.backgroundColor = [UIColor clearColor];
+    _paggingNavbar.titleLableColor = _titleLableColor;
+    _paggingNavbar.pageControl.currentPageIndicatorTintColor = _indicatorActiveColor;
+    _paggingNavbar.pageControl.pageIndicatorTintColor = _indicatorColor;
+    
     if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
         [self setAutomaticallyAdjustsScrollViewInsets:NO];
     }
     
-    self.navigationItem.titleView = self.paggingNavbar;
-}
+    self.navigationItem.titleView = _paggingNavbar;
 
-- (void)setupViews {
-    [self.view addSubview:self.centerContainerView];
     
     [self setupTargetViewController:self.leftViewController withSlideType:XHSlideTypeLeft];
     [self setupTargetViewController:self.rightViewController withSlideType:XHSlideTypeRight];
