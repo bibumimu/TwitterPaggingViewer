@@ -19,11 +19,6 @@
 }
 
 /**
- *  分页指示器
- */
-@property (nonatomic, strong) UIPageControl *pageControl;
-
-/**
  *  title label 集合
  */
 @property (nonatomic, strong) NSMutableArray *titleLabels;
@@ -55,7 +50,7 @@
         titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
         titleLabel.font = [[UINavigationBar appearance].titleTextAttributes objectForKey:NSFontAttributeName];
         titleLabel.textAlignment = NSTextAlignmentCenter;
-        titleLabel.textColor = [UINavigationBar appearance].tintColor;
+        titleLabel.textColor = _titleLableColor;
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.text = title;
         titleLabel.frame = titleLabelFrame;
@@ -108,8 +103,6 @@
         _pageControl.frame = (CGRect){0, 35, CGRectGetWidth(self.bounds), 0};
         _pageControl.hidesForSinglePage = YES;
         _pageControl.currentPage = self.currentPage;
-        _pageControl.currentPageIndicatorTintColor = [UIColor whiteColor];
-        _pageControl.pageIndicatorTintColor = [UIColor colorWithWhite:0.799 alpha:1.000];
     }
     return _pageControl;
 }

@@ -112,6 +112,9 @@ typedef NS_ENUM(NSInteger, XHSlideType) {
     if (!_paggingNavbar) {
         _paggingNavbar = [[XHPaggingNavbar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds) / 2.0, 44)];
         _paggingNavbar.backgroundColor = [UIColor clearColor];
+        _paggingNavbar.titleLableColor = _titleLableColor;
+        _paggingNavbar.pageControl.currentPageIndicatorTintColor = _indicatorActiveColor;
+        _paggingNavbar.pageControl.pageIndicatorTintColor = _indicatorColor;
     }
     return _paggingNavbar;
 }

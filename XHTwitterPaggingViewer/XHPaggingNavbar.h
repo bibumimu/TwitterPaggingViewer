@@ -11,6 +11,16 @@
 @interface XHPaggingNavbar : UIView
 
 /**
+ *  标题文本颜色
+ */
+@property (nonatomic, strong) UIColor *titleLableColor;
+
+/**
+ *  分页指示器
+ */
+@property (nonatomic, strong) UIPageControl *pageControl;
+
+/**
  *  显示在导航条上的title集合
  */
 @property (nonatomic, strong) NSArray *titles;

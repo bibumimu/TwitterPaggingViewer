@@ -7,10 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XHPaggingNavbar.h"
 
 typedef void(^XHDidChangedPageBlock)(NSInteger currentPage, NSString *title);
 
 @interface XHTwitterPaggingViewer : UIViewController
+
+/**
+ *  指示器颜色
+ */
+@property (nonatomic, strong) UIColor *indicatorColor;
+
+/**
+ *  指示器激活颜色
+ */
+@property (nonatomic, strong) UIColor *indicatorActiveColor;
+
+/**
+ *  标题文本颜色
+ */
+@property (nonatomic, copy) UIColor *titleLableColor;
 
 /**
  *  改变页码的回调
