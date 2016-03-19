@@ -51,10 +51,11 @@ typedef NS_ENUM(NSInteger, XHSlideType) {
 - (void)setCurrentPage:(NSInteger)currentPage animated:(BOOL)animated {
     self.paggingNavbar.currentPage = currentPage;
     self.currentPage = currentPage;
-    
+
     CGFloat pageWidth = CGRectGetWidth(self.paggingScrollView.frame);
     
-    [self.paggingScrollView setContentOffset:CGPointMake(currentPage * pageWidth, 0) animated:animated];
+    CGPoint point = CGPointMake(currentPage * pageWidth, self.paggingScrollView.contentOffset.y);
+    [self.paggingScrollView setContentOffset:point animated:animated];
 }
 
 - (void)reloadData {
