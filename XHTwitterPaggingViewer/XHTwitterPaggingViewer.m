@@ -181,10 +181,6 @@ typedef NS_ENUM(NSInteger, XHSlideType) {
     _paggingNavbar.pageControl.currentPageIndicatorTintColor = _indicatorActiveColor;
     _paggingNavbar.pageControl.pageIndicatorTintColor = _indicatorColor;
     
-    if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
-        [self setAutomaticallyAdjustsScrollViewInsets:NO];
-    }
-    
     self.navigationItem.titleView = _paggingNavbar;
 
     
